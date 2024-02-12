@@ -1,10 +1,61 @@
-function foo(arr,tabs){
-	if (arr === null) return
-	for (let i = 0; i < arr.length; i++){
-		console.log('  '.repeat(tabs)+arr[i].sorthead);
-		foo(arr[i].children, tabs+1)
+
+// function foo(arr,tabs){
+// 	if (arr === null) {
+// 		wrapper.append(document.createElement('div'))
+// 		return
+// 	}
+// 	for (let i = 0; i < arr.length; i++){
+// 		console.log('  '.repeat(tabs)+arr[i].sorthead);
+// 		foo(arr[i].children, tabs+1)
+// 	}
+// }
+
+let wrapper = document.querySelector('.wrapper')
+let prevElem = null
+let level = 0
+
+function render(arr) {
+	if (arr === null) {
+		return
 	}
+	
+	for (let i = 0; i < arr.length; i++){
+		let elem = document.createElement('div')
+		if(arr[i].head === null){
+			elem.classList.add('rootElem')
+			elem.innerText = 'root'
+			wrapper.append(elem)
+			prevElem = elem
+		} 
+		else{
+			elem.classList.add('elem')
+			level++
+			elem.style.marginLeft = `${level * 20}px`
+			prevElem.append(elem)
+			elem.innerText = 'lorem'
+			if(arr[i].children !== null){
+				prevElem = elem
+			}
+			else{
+
+			}
+		}
+		render(arr[i].children)
+		if(level > 0) {
+			level--
+		}
+	}
+
+
+	// for(let item of arr){
+	// 	if(item.head === null){
+	// 		let rootElem = document.createElement('div')
+	// 		rootElem.classList.add('rootElem')
+	// 		wrapper.append(rootElem)
+	// 	}
+	// }	
 }
+
 
 function sort(arr) {
 	if (arr === null) return
@@ -22,7 +73,7 @@ let dataString = JSON.stringify( {
             "name": "Проф.осмотр",
             "node": 0,
             "price": 100.0,
-            "sorthead": 20
+            "sorthead": 0
         },
         {
             "id": 2,
@@ -121,7 +172,8 @@ for (key in dataSet){
 		root.push(item)
 	}
 }
-foo(root,0)
 sort(root)
-foo(root,0)
+console.log(root);
+render(root,0)
+
 // в root лежит массив с объектами с массивом children == null Или [], всё отсортировано.

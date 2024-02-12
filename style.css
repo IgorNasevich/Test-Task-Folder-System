@@ -4,3 +4,16 @@
 	background-color: red;
 	min-height: 400px;
 }
+.rootElem{
+	width: 200px;
+	background-color: green;
+	min-height: 50px;
+	border: 2px solid black;
+}
+
+.elem{
+	width: 150px;
+	background-color: yellow;
+	min-height: 30px;
+	border: 2px solid black;
+}
