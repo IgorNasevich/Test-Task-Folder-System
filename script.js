@@ -1,56 +1,27 @@
-
-// function foo(arr,tabs){
-// 	if (arr === null) {
-// 		wrapper.append(document.createElement('div'))
-// 		return
-// 	}
-// 	for (let i = 0; i < arr.length; i++){
-// 		console.log('  '.repeat(tabs)+arr[i].sorthead);
-// 		foo(arr[i].children, tabs+1)
-// 	}
-// }
-
 let wrapper = document.querySelector('.wrapper')
 let prevElem = wrapper
 
 
 function render(arr) {
 
-
 	if (arr === null) {
 		return
 	}
 
-		
 	for (let i = 0; i < arr.length; i++){
 		let type = 'assets/folder.png'
 		let elem = document.createElement('div')
 		
 		prevElem.append(elem)
-		elem.classList.add('elem')
-		
-
-		if(arr[i].head === null){
-			elem.classList.add('rootElem')
-			
-			if(arr[i].children !== null){
-				prevElem = elem
-			}
-		} 
+		elem.classList.add(arr[i].head === null ? 'rootElem' : 'innerElem')
+		if(arr[i].children !== null){
+			prevElem = elem
+		}
 		else{
-			elem.classList.add('innerElem')
-			if(arr[i].children !== null){
-				prevElem = elem
-				
-			}
-			else{
-				type = 'assets/file.png'
-			}
-			
-			
+			type = 'assets/file.png' 
 		}
 
-		if(arr[i].children === null){
+		if(arr[i].children === null || arr[i].children.length ===0){
 			elem.innerHTML =
 				`
 				<div class= 'elem-wrapper'>
@@ -71,12 +42,9 @@ function render(arr) {
 		}
 
 		render(arr[i].children)
-		if(i+1 === arr.length)	{
-			prevElem = prevElem.parentElement
-		}
 	}
+	prevElem = prevElem.parentElement
 }
-
 
 function sort(arr) {
 	if (arr === null) return
@@ -178,7 +146,7 @@ let root = []
 
 for (let i = 0; i < services.length; i++){
 	dataSet[services[i].id] = services[i]
-	services[i]['children'] = services[i].node == 1 ? [] : null
+	services[i]['children'] = services[i].node === 1 ? [] : null
 	delete services[i].id
 	delete services[i].node
 }

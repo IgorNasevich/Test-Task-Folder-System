@@ -15,11 +15,6 @@
 	padding: 5px 0
 }
 
-.elem{
-	
-
-}
-
 .elem-wrapper{
 	display: flex;
 	align-items: center;
@@ -36,10 +31,8 @@
 	transition-duration: 0.3s;
 }
 
-
 .hidden{
 	display: none;
-
 }
 
 .tilt{
