@@ -13,6 +13,7 @@
 let wrapper = document.querySelector('.wrapper')
 let prevElem = wrapper
 
+
 function render(arr) {
 
 
@@ -48,7 +49,7 @@ function render(arr) {
 			
 			
 		}
-		
+
 		if(arr[i].children === null){
 			elem.innerHTML =
 				`
@@ -196,4 +197,18 @@ sort(root)
 console.log(root);
 render(root,0)
 
+
+document.body.addEventListener('click', (e)=>{
+	e.stopPropagation()
+	if(e.target.classList.contains('arrow')){
+		e.target.classList.toggle('tilt')
+		let children = e.target.parentElement.parentElement.children
+		for (let i = 0; i < children.length; i++){
+			if(i !== 0){
+				children[i].classList.toggle('hidden')
+			}
+			
+		}
+	}
+})
 // в root лежит массив с объектами с массивом children == null Или [], всё отсортировано.
