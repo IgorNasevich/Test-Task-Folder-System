@@ -11,49 +11,69 @@
 // }
 
 let wrapper = document.querySelector('.wrapper')
-let prevElem = null
-let level = 0
+let prevElem = wrapper
 
 function render(arr) {
+
+
 	if (arr === null) {
 		return
 	}
-	
+
+		
 	for (let i = 0; i < arr.length; i++){
+		let type = 'assets/folder.png'
 		let elem = document.createElement('div')
+		
+		prevElem.append(elem)
+		elem.classList.add('elem')
+		
+
 		if(arr[i].head === null){
 			elem.classList.add('rootElem')
-			elem.innerText = 'root'
-			wrapper.append(elem)
-			prevElem = elem
-		} 
-		else{
-			elem.classList.add('elem')
-			level++
-			elem.style.marginLeft = `${level * 20}px`
-			prevElem.append(elem)
-			elem.innerText = 'lorem'
+			
 			if(arr[i].children !== null){
 				prevElem = elem
 			}
-			else{
-
+		} 
+		else{
+			elem.classList.add('innerElem')
+			if(arr[i].children !== null){
+				prevElem = elem
+				
 			}
+			else{
+				type = 'assets/file.png'
+			}
+			
+			
 		}
+		
+		if(arr[i].children === null){
+			elem.innerHTML =
+				`
+				<div class= 'elem-wrapper'>
+					<img src=${type} width='20px' height='20px' alt="item-type">
+					<div class="text">${arr[i].name} (${arr[i].price})</div>
+				</div>
+				`		
+		}
+		else{
+			elem.innerHTML=	
+			`
+			<div class= 'elem-wrapper'>
+				<img src="assets/arrow-button.png" class = 'arrow' width='20px' height='20px' alt="arrow-button">
+				<img src=${type} width='20px' height='20px' alt="item-type">
+				<div class="text">${arr[i].name} (${arr[i].price})</div>
+			</div>
+			`
+		}
+
 		render(arr[i].children)
-		if(level > 0) {
-			level--
+		if(i+1 === arr.length)	{
+			prevElem = prevElem.parentElement
 		}
 	}
-
-
-	// for(let item of arr){
-	// 	if(item.head === null){
-	// 		let rootElem = document.createElement('div')
-	// 		rootElem.classList.add('rootElem')
-	// 		wrapper.append(rootElem)
-	// 	}
-	// }	
 }
 
 
@@ -73,7 +93,7 @@ let dataString = JSON.stringify( {
             "name": "Проф.осмотр",
             "node": 0,
             "price": 100.0,
-            "sorthead": 0
+            "sorthead": 20
         },
         {
             "id": 2,
